@@ -10,4 +10,7 @@ import { TransactionsPage } from './transactions';
     IonicPageModule.forChild(TransactionsPage),
   ],
 })
-export class TransactionsPageModule {}
+export class TransactionsPageModule {
+
+  
+}
