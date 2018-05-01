@@ -33,7 +33,6 @@ password : string;
 
     let loader = this.loadingCtrl.create({
       content: "Please wait...",
-      duration: 3000
     });
     loader.present();
     
@@ -41,7 +40,7 @@ password : string;
 //login logic 
 this.afAuth.auth.signInWithEmailAndPassword(this.username,this.password).then((value)=>{
 console.log('login....');
-
+loader.dismiss();
 console.log(value);
 this.auth.loggedin=true;
 console.log(value.uid);

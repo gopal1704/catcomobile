@@ -1,9 +1,4 @@
-<!--
-  Generated template for the TransactionsPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -20,25 +15,21 @@
 
     <ion-card *ngFor="let t of Transactions ">
 
-        <ion-card-header>
          
       
-            <ion-item>
-              <b>{{converttimestamp(t.timestamp)}}</b>  
-                <ion-badge *ngIf="t.debit > 0" color="danger" item-end>{{t.debit}}</ion-badge>
-                <ion-badge *ngIf="t.credit > 0" color="secondary" item-end>{{t.credit}}</ion-badge>
-                <ion-badge *ngIf="t.type=='DI'" color="primary" item-end>{{t.amount}}</ion-badge>
+            
 
-              </ion-item>
-
-        </ion-card-header>
       
        
-        <ion-card-content>
-            <p>{{t.narration}}</p>
-       </ion-card-content>
-
-
+            <ion-item>
+                <p>{{converttimestamp(t.timestamp)}}</p>  
+                  <ion-badge *ngIf="t.debit > 0" color="danger" item-end>${{t.debit}}</ion-badge>
+                  <ion-badge *ngIf="t.credit > 0" color="secondary" item-end>${{t.credit}}</ion-badge>
+                  <ion-badge *ngIf="t.type=='DI'" color="primary" item-end>${{t.amount}}</ion-badge>
+  
+                </ion-item>
+                <ion-card-content>            <p>{{t.narration}}</p>
+                </ion-card-content>
       </ion-card>
 
 </ion-content>

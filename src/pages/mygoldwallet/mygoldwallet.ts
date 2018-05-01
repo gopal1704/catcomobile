@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DataProvider } from '../../providers/data/data';
+import { LoadingController } from 'ionic-angular';
 
-/**
- * Generated class for the MygoldwalletPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -14,10 +11,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'mygoldwallet.html',
 })
 export class MygoldwalletPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+public Investments : any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public data_service :DataProvider,public loadingCtrl: LoadingController, 
+  ) {
+     
+    let loader = this.loadingCtrl.create({
+      content: " loading...",
+    });
+    loader.present();
+    this.data_service.get_investments().subscribe((v)=>{
+    loader.dismiss();
+      this.Investments= v;
+      console.log(v);
   }
-
+)}
   ionViewDidLoad() {
     console.log('ionViewDidLoad MygoldwalletPage');
   }

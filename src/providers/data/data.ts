@@ -16,18 +16,18 @@ import { AuthProvider } from '../auth/auth';
 @Injectable()
 export class DataProvider {
 
-  public uid : string ;
+  public uid: string;
   constructor(public http: HttpClient,
-        public afs: AngularFirestore,
-        public auth : AuthProvider
+    public afs: AngularFirestore,
+    public auth: AuthProvider
   ) {
-    this.uid= this.auth.user_id;
+    this.uid = this.auth.user_id;
     console.log('Hello DataProvider Provider');
 
   }
   get_transactions() {
     console.log("transactions");
-   console.log(this.uid);
+    console.log(this.uid);
 
     var transactionscollection = this.afs.collection('transactions', ref => {
       return ref.where('uid', '==', this.auth.user_id).orderBy('timestamp', 'desc')
@@ -36,7 +36,15 @@ export class DataProvider {
 
 
   }
-  get_accountsummary(){
+  get_investments() {
+
+    var investmentscollection = this.afs.collection('investments', ref => {
+      return ref.where('uid', '==', this.auth.user_id).orderBy('timestamp','desc');
+
+    });
+    return investmentscollection.valueChanges();
+  }
+  get_accountsummary() {
 
   }
 
