@@ -16,6 +16,7 @@ export class TransactionsPage {
      this.data_service.get_transactions().subscribe((v)=>{
 
       this.Transactions= v;
+      console.log(v);
     });
 
     

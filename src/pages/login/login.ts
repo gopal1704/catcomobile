@@ -43,6 +43,9 @@ this.afAuth.auth.signInWithEmailAndPassword(this.username,this.password).then((v
 console.log('login....');
 
 console.log(value);
+this.auth.loggedin=true;
+console.log(value.uid);
+this.auth.user_id=value.uid;
 
 this.navCtrl.popToRoot();
 
