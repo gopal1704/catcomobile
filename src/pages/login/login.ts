@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {AuthProvider} from '../../providers/auth/auth'
+import { AngularFireAuth, AngularFireAuthProvider } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import { LoadingController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -14,12 +13,58 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+username : string;
+password : string;
+  constructor(public navCtrl: NavController,
+    public loadingCtrl: LoadingController, 
+    public navParams: NavParams,
+     private afAuth: AngularFireAuth,
+     public auth : AuthProvider,
+     public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    this.auth.login();
+    
+  
   }
+  login(){
+
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 3000
+    });
+    loader.present();
+    
+
+//login logic 
+this.afAuth.auth.signInWithEmailAndPassword(this.username,this.password).then((value)=>{
+console.log('login....');
+
+console.log(value);
+
+this.navCtrl.popToRoot();
+
+
+
+
+}).catch(err=>{
+  loader.dismiss();
+  let alert = this.alertCtrl.create({
+    title: 'Login Failed!',
+    subTitle: 'Incorect email or password ',
+    buttons: ['OK']
+  });
+  alert.present();
+
+})
+
+
+
+//
+  
+
+}
 
 }

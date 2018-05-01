@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule, AngularFireStorage} from 'angularfire2/storage';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 
 import { MyApp } from './app.component';
@@ -56,7 +55,6 @@ var config = {
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule,
     HttpClientModule
   ],
   bootstrap: [IonicApp],
