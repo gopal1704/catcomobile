@@ -31,15 +31,15 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Account Summary', icon: 'home',component: HomePage },
-      { title: 'My Gold Wallet',icon: 'home', component: MygoldwalletPage },
-      { title: 'Place Buy Order',icon: 'home', component: PlacebuyorderPage },
-      { title: 'My Referrals', icon: 'home',component: MyreferralsPage },
-      { title: 'Transactions', icon: 'home',component: TransactionsPage },
-      { title: 'Wallet Transfer',icon: 'home', component: WallettransferPage },
-      { title: 'Withdraw',icon: 'home', component: WithdrawPage },
+      { title: 'My Gold Wallet',icon: 'ios-cash-outline', component: MygoldwalletPage },
+      { title: 'Place Buy Order',icon: 'ios-cart-outline', component: PlacebuyorderPage },
+      { title: 'My Referrals', icon: 'ios-contacts-outline',component: MyreferralsPage },
+      { title: 'Transactions', icon: 'ios-swap-outline',component: TransactionsPage },
+      { title: 'Wallet Transfer',icon: 'ios-send-outline', component: WallettransferPage },
+      { title: 'Withdraw',icon: 'logo-usd', component: WithdrawPage },
       { title: 'Profile',icon: 'ios-contact-outline', component: ProfilePage },
-      { title: 'Buisness Plan',icon: 'home', component: PlanPage },
-      { title: 'Login',icon: 'home', component: LoginPage },
+      { title: 'Buisness Plan',icon: 'ios-list-box-outline', component: PlanPage },
+      { title: 'Logout',icon: 'md-arrow-back', component: LoginPage },
 
 
     ];

@@ -15,7 +15,7 @@ export class TransactionsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public data_service : DataProvider,public loadingCtrl :LoadingController) {
 
     let loader = this.loadingCtrl.create({
-      content: " loading...",
+      content: " please wait...",
     });
     loader.present();
      this.data_service.get_transactions().subscribe((v)=>{
