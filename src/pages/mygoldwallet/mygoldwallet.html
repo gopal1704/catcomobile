@@ -8,26 +8,28 @@
 </ion-header>
 
 <ion-content>
-    <ion-card>
+
+
+    <ion-card *ngFor="let t of Investments ">
 
       
         <ion-item>
-          <p  item-start large> <b>Investment : </b> 20/20/2018  </p>
-          <p item-end> <ion-badge  color="primary" >$1000</ion-badge>
+          <p  item-start large> <b>Investment : </b> {{converttimestamp(t.timestamp,t.duration)}}  </p>
+          <p item-end> <ion-badge  color="primary" >{{t.amount}}</ion-badge>
           </p>
         </ion-item>
       
         <ion-item>
-            <p  item-start large> <b>Maturity : </b> 20/20/2018 </p>
-            <p item-end> <ion-badge  color="secondary" >$1000</ion-badge></p>
+            <p  item-start large> <b>Maturity : </b> {{calculateenddate(t.timestamp,t.duration)}} </p>
+            <p item-end> <ion-badge  color="secondary" >${{t.amount+(t.amount*(t.interest_rate/100))}}</ion-badge></p>
           </ion-item>
         
       
         <ion-item>
-          <span item-left>90 days</span>
+          <span item-left>{{t.duration}} days</span>
           <span item-left>(24%)</span>
           <button ion-button icon-left clear item-end>
-          <p style ="color :green"> <b> Active</b></p>
+          <p style ="color :green"> <b> {{t.status}}</b></p>
           </button>
         </ion-item>
       

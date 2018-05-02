@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import{DataProvider} from '../../providers/data/data';
-
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
 @IonicPage()
 @Component({
@@ -12,9 +12,14 @@ import{DataProvider} from '../../providers/data/data';
 export class TransactionsPage {
   public Transactions;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public data_service : DataProvider) {
-     this.data_service.get_transactions().subscribe((v)=>{
+  constructor(public navCtrl: NavController, public navParams: NavParams, public data_service : DataProvider,public loadingCtrl :LoadingController) {
 
+    let loader = this.loadingCtrl.create({
+      content: " loading...",
+    });
+    loader.present();
+     this.data_service.get_transactions().subscribe((v)=>{
+      loader.dismiss();
       this.Transactions= v;
       console.log(v);
     });
