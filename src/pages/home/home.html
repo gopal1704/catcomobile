@@ -12,28 +12,28 @@
     <ion-card>
 
         <ion-item>
-            <p  item-start large> <b>Name </b></p>
-            <p item-end> <ion-badge  color="secondary" >Active</ion-badge></p>
+            <p  item-start large> <b>{{Accountsummary.name}} </b></p>
+            <p item-end> <ion-badge  color="secondary" >{{Accountsummary.approvalstatus}}</ion-badge></p>
           </ion-item>
         
       
         <ion-item>
           <p item-start> <b>Joining date</b></p>
           <button ion-button icon-left clear item-end>
-          <p style ="color :green"> <b> 20/20/2017</b></p>
+          <p style ="color :green"> <b> {{converttimestamp(Accountsummary.joiningdate)}}</b></p>
           </button>
         </ion-item>
 
         <ion-item>
             <p  item-start large> <b>Account Id </b></p>
-            <p item-end> YeYKxJeIpxXXa2ejwqdvdZDmdsi2</p>
+            <p item-end> {{Accountsummary.uid}}</p>
           </ion-item>
 
         <ion-card>
         <ion-item>
           <p  item-start large> Wallet balance
               
-          <p item-end> <ion-badge  color="primary" >$1000</ion-badge>
+          <p item-end> <ion-badge  color="primary" >${{Accountsummary.walletbalance}}</ion-badge>
           </p>
         </ion-item>
         </ion-card>
@@ -42,7 +42,7 @@
               <p  item-start large> Pending Wallet balance
                 
                   
-              <p item-end> <ion-badge  color="primary" >$1000</ion-badge>
+              <p item-end> <ion-badge  color="primary" >${{Accountsummary.walletpendingbalance}}</ion-badge>
               </p>
             </ion-item>
             </ion-card>
@@ -51,7 +51,7 @@
                   <p  item-start large> Referral comission
                     
                       
-                  <p item-end> <ion-badge  color="primary" >$1000</ion-badge>
+                  <p item-end> <ion-badge  color="primary" >${{Accountsummary.totalspotearnings}}</ion-badge>
                   </p>
                 </ion-item>
                 </ion-card>
@@ -60,7 +60,7 @@
                       <p  item-start large> Monthly Ref. Earnings
                         
                           
-                      <p item-end> <ion-badge  color="primary" >$1000</ion-badge>
+                      <p item-end> <ion-badge  color="primary" >${{Accountsummary.totalreferralearnings}}</ion-badge>
                       </p>
                     </ion-item>
                     </ion-card>
@@ -72,7 +72,7 @@
 
                             
                               
-                          <p item-end> <ion-badge  color="primary" >$1000</ion-badge>
+                          <p item-end> <ion-badge  color="primary" >${{Accountsummary.totalinvestment}}</ion-badge>
                           </p>
                         </ion-item>
                         </ion-card>
@@ -82,3 +82,4 @@
 
 
 </ion-content>
+S

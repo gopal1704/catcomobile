@@ -37,15 +37,16 @@ export class DataProvider {
 
   }
   get_investments() {
-
+        
     var investmentscollection = this.afs.collection('investments', ref => {
-      return ref.where('uid', '==', this.auth.user_id).orderBy('timestamp','desc');
-
+      return ref.where('uid', '==', this.auth.user_id).orderBy('timestamp', 'desc');
+      
     });
     return investmentscollection.valueChanges();
   }
   get_accountsummary() {
-
+    return this.afs.doc<any>(`accountsummary/${this.auth.user_id}`).valueChanges();
+    
   }
 
 
