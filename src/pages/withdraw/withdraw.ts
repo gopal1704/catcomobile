@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataProvider } from '../../providers/data/data';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { HomePage } from '../home/home';
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
 
 
@@ -24,7 +26,9 @@ export class WithdrawPage {
   public bitcoin: string = "";
 
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public auth: AuthProvider, public navParams: NavParams, public data_service: DataProvider) {
+  constructor(public navCtrl: NavController,
+    public toastCtrl : ToastController,
+    public alertCtrl: AlertController, public auth: AuthProvider, public navParams: NavParams, public data_service: DataProvider) {
   }
 
   ionViewDidLoad() {
@@ -33,6 +37,8 @@ export class WithdrawPage {
   send_request() {
 
     if (this.amount <= this.auth.user_summary.walletbalance) {
+
+
       var validate = false;
       if (this.withdrawalmethod == 'bank') {
 
@@ -72,14 +78,19 @@ export class WithdrawPage {
 
 
         });
-        let alert = this.alertCtrl.create({
-          title: 'Withdrawal request ',
-          subTitle: 'sent successfully',
-          buttons: ['Dismiss']
+       
+        let toast = this.toastCtrl.create({
+          message: 'Request sent successfully',
+          duration: 3000,
+          position: 'top'
         });
-        alert.present();
+        toast.present();
+        this.amount=0;
+        this.withdrawalmethod="";
+    this.navCtrl.popToRoot();
+       
 
-        this.navCtrl.popToRoot();
+ 
       }
 
       else {

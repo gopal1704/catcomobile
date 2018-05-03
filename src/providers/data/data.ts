@@ -83,5 +83,83 @@ export class DataProvider {
 
   }
 
+   /***********WALLET TRANSFER*************** */
+  transfer_to_wallet(amount, to_wallet) {
+    
+    var reftrans = this.afs.collection('/transactions');
+    const toaccountsummaryref: AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${to_wallet}`);
+    const fromaccountsummaryref :AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${this.auth.user_id}`);
+
+    var transaction_to= {
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      uid: to_wallet,
+      type: 'CWT',
+      status: 'success',
+      from: this.auth.user_id,
+      to: to_wallet,
+      amount: 0,
+      debit: 0,
+      credit: amount,
+      narration: `Credit Wallet Transfer  from : ${this.auth.user_summary.name} ${this.auth.user_id}`
+    };         
+
+    var transaction_from = {
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      uid: this.auth.user_id,
+      type: 'DWT',
+      status: 'success',
+      from: this.auth.user_id,
+      to: to_wallet,
+      amount: 0,
+      debit: amount,
+      credit: 0,
+      narration: `Debit Wallet Transfer to : ${to_wallet}`
+    };         
+
+    reftrans.add(transaction_from).then(()=>{
+      reftrans.add(transaction_to).then(()=>{
+        
+//UPDATE SUMMARY DATA
+this.afs.doc<any>(`accountsummary/${to_wallet}`).valueChanges().take(1).subscribe((v) => {
+
+  toaccountsummaryref.update({
+    walletbalance: v.walletbalance + parseInt(amount)
+  }).then(()=>{
+
+    this.afs.doc<any>(`accountsummary/${this.auth.user_id}`).valueChanges().take(1).subscribe((v)=>{
+
+fromaccountsummaryref.update({
+      walletbalance: v.walletbalance - parseInt(amount)
+
+    });
+    });
+
+    // fromaccountsummaryref.update({
+    //   walletbalance: v.walletbalance - amount
+
+    // });
+
+
+
+
+
+  });
+
+});
+
+
+
+
+      });
+    });
+
+
+  }//wallet transfer
+
+
+
+
+
+
 
 }
