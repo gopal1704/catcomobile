@@ -16,40 +16,68 @@
    
       <ion-card>
   
-          <ion-item>
+          <ion-item-divider>
               <p  item-start large> <b>Name	 </b></p>
-              <p item-end> gopal</p>
-            </ion-item>
-          
-            <ion-item>
-                <p  item-start large> <b>Date of Birth		 </b></p>
-                <p item-end> gopal</p>
-              </ion-item>
-              <ion-item>
+              <p item-end> {{Profile.displayname}}</p>
+          </ion-item-divider>
+           
+              
+          <ion-item-divider>
+                <p  item-start large> <b> 	Date of birth	 </b></p>
+                <p item-end> {{Profile.dob}} </p>
+          </ion-item-divider>
+
+
+          <ion-item-divider>
                   <p  item-start large> <b>Gender		 </b></p>
-                  <p item-end> gopal</p>
-                </ion-item>
-                <ion-item>
+                  <p item-end> {{Profile.gender}}</p>
+          </ion-item-divider>
+
+
+          <ion-item-divider>
                     <p  item-start large> <b>Date of Joining			 </b></p>
-                    <p item-end> gopal</p>
-                  </ion-item>
+                    <p item-end> {{converttimestampdob(Profile.dateofjoining)}}</p>
+          </ion-item-divider>
   
 
-                  <ion-item>
+          <ion-item-divider>
                       <p  item-start large> <b>		Email </b></p>
-                      <p item-end> gopal</p>
-                    </ion-item>
+                      <p item-end> {{Profile.email}}</p>
+          </ion-item-divider>
                   
-                    <ion-item>
+          <ion-item-divider>
                         <p  item-start large> <b> 	Mobile		 </b></p>
-                        <p item-end> gopal</p>
-                      </ion-item>
+                        <p item-end> {{Profile.isdcode}}  {{Profile.mobile}} </p>
+          </ion-item-divider>
                                   
-                      <ion-item>
+          <ion-item-divider>
                           <p  item-start large> <b> Referral Id				 </b></p>
-                          <p item-end> gopal</p>
-                        </ion-item>
-        
+                          <p item-end> {{Profile.referralid}}</p>
+          </ion-item-divider>
+
+                        
+          <ion-item-divider>
+                            <p  item-start large> <b> Address				 </b></p>
+                            <p item-end> {{Profile.address}}</p>
+          </ion-item-divider>
+
+
+          <ion-item-divider>
+                              <p  item-start large> <b> City				 </b></p>
+                              <p item-end> {{Profile.city}}</p>
+          </ion-item-divider>
+                                
+                                <ion-item-divider>
+                                <p  item-start large> <b> Country				 </b></p>
+                                <p item-end> {{Profile.country}}</p>
+                                </ion-item-divider>
+
+
+                                <ion-item-divider>    
+                                                                <p  item-start large> <b> Id proof				 </b></p>
+                                  <p item-end> <a href="{{Profile.proofurl}}">view</a> </p>
+                                </ion-item-divider>    
+
         </ion-card>
   
   

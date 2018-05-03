@@ -49,5 +49,10 @@ export class DataProvider {
     
   }
 
+  get_profile(){
+    return this.afs.doc<any>(`users/${this.auth.user_id}`).valueChanges();
+
+  }
+
 
 }

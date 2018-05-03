@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import{DataProvider} from '../../providers/data/data';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -14,12 +11,37 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+public Profile : any;
+  constructor(
+    public loadingCtrl :LoadingController,
+    public navCtrl: NavController, public navParams: NavParams,public data_service : DataProvider) {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.Profile = {};
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
   }
+  converttimestampdob(ts){
+    var d = new Date(ts);
+   // return d.toLocaleString();
+     return  d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
+    
+    }
+  ionViewDidEnter() {
+
+    let loader = this.loadingCtrl.create({
+      content: " please wait...",
+    });
+    loader.present();
+  this.data_service.get_profile().subscribe((v)=>{
+  this.Profile=v;
+  loader.dismiss();
+  })
+    
+  }
+
+
 
 }

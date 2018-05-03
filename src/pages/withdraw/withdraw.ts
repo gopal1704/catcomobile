@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'withdraw.html',
 })
 export class WithdrawPage {
-
+ public withdrawalmethod :string  ="";
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
