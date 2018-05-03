@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataProvider } from '../../providers/data/data';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AuthProvider } from '../../providers/auth/auth';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 
 
@@ -15,8 +17,8 @@ export class WallettransferPage {
   public to_wallet : string ="";
 public Accountname : string = "";
 public accountstatus : boolean = false;
-  constructor(    public afs: AngularFirestore,
-    ,public navCtrl: NavController, public navParams: NavParams,public data_service : DataProvider) {
+  constructor( public  alertCtrl: AlertController,  public auth :AuthProvider, public afs: AngularFirestore,
+    public navCtrl: NavController, public navParams: NavParams,public data_service : DataProvider) {
   }
 
   ionViewDidLoad() {
@@ -24,8 +26,37 @@ public accountstatus : boolean = false;
   }
 
   transfer(){
+    if(this.amount>this.auth.user_summary.walletbalance){
+     
+      let alert = this.alertCtrl.create({
+        title: 'error!',
+        subTitle: 'Insufficient funds',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+    else if(this.accountstatus==true){
+      this.data_service.transfer_to_wallet(this.amount,this.to_wallet);
+      let alert = this.alertCtrl.create({
+        title: 'success!',
+        subTitle: 'Wallet transfer successful ',
+        buttons: ['OK']
+      });
+      alert.present();
+      this.amount = 0;
+      this.to_wallet = "";
+      this.accountstatus = false;
+      
+    }
+    else {
+      let alert = this.alertCtrl.create({
+        title: 'error!',
+        subTitle: 'Account id dosent exists ',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
 
-    this.data_service.transfer_to_wallet(this.amount,this.to_wallet)
   }
 
   onSearchChange(value : string){
@@ -35,18 +66,13 @@ public accountstatus : boolean = false;
           
     name.subscribe((v)=>{
       if(v){
-      this.Accountname = 'Transfer to : '+ v.name;
+      this.Accountname = v.name;
      this.accountstatus = true;
-     this.ds.WalletTransferData.to_account = value;
-     this.ds.WalletTransferData.to_name = v.name;
      console.log()
-      if(this.amountstatus == true && this.accountstatus && this.ds.WalletTransferData.amount <=this.walletbalance ){
-      this.proceed = true;
-    }
+   
     }
       else{  this.Accountname = 'Account does not exist';
       this.accountstatus = false;
-      this.proceed = false;
     }
     }),err=>{
       this.Accountname = 'Account does not exist';
@@ -56,7 +82,6 @@ public accountstatus : boolean = false;
     
     }
     else{
-      this.proceed = false;
     }
       }
 

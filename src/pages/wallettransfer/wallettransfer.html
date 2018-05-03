@@ -21,12 +21,12 @@
 
         <ion-item>
             <ion-label floating>Account Id</ion-label>
-            <ion-input  [(ngModel)]="to_wallet" type="text"></ion-input>
+            <ion-input  [(ngModel)]="to_wallet" (input)="onSearchChange($event.target.value)" type="text"></ion-input>
           </ion-item>
 
           <ion-item>
-              <ion-label>To Account Name : </ion-label>
-              <ion-input disabled  type="text"></ion-input>
+              <ion-label>To:  </ion-label>
+              <ion-input disabled  type="text" value="{{Accountname}}"  > </ion-input>
             </ion-item>
             <ion-item>
 
