@@ -1,6 +1,9 @@
 <ion-header>
 
   <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
     <ion-title>Withdraw</ion-title>
   </ion-navbar>
 
@@ -19,24 +22,55 @@
 
         <ion-item>
           <ion-label floating>Amount</ion-label>
-          <ion-input  type="number"></ion-input>
+          <ion-input  [(ngModel)]="amount" type="number"></ion-input>
         </ion-item>
       
         <ion-item>
             <ion-label>Withdrawal method.</ion-label>
             <ion-select [(ngModel)]="withdrawalmethod">
-              <ion-option value="f">Bank</ion-option>
-              <ion-option value="p">Paypal</ion-option>
-              <ion-option value="m">Moneypolo</ion-option>
-              <ion-option value="m">Bitcoin</ion-option>
+              <ion-option value="bank">Bank</ion-option>
+              <ion-option value="paypal">Paypal</ion-option>
+              <ion-option value="moneypolo">Moneypolo</ion-option>
+              <ion-option value="bitcoin">Bitcoin</ion-option>
 
             </ion-select>
           </ion-item>
       
-        <ion-item>
+       
 
-        <button ion-button large full color="primary" (click)="login()">Send request</button>
-      </ion-item>
+      <ion-item  *ngIf="withdrawalmethod === 'bank'">
+          <ion-label floating>Bank name</ion-label>
+          <ion-input [(ngModel)]="bankname" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="withdrawalmethod === 'bank'">
+            <ion-label floating>Account number</ion-label>
+            <ion-input [(ngModel)]="accountnumber" type="text"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="withdrawalmethod === 'bank'">
+              <ion-label floating>Ifsc</ion-label>
+              <ion-input [(ngModel)]="ifsc" type="text"></ion-input>
+            </ion-item>
+
+
+            <ion-item *ngIf="withdrawalmethod === 'paypal'">
+                <ion-label floating>Paypal Email</ion-label>
+                <ion-input  [(ngModel)]="paypal" type="text"></ion-input>
+              </ion-item>
+
+
+              <ion-item  *ngIf="withdrawalmethod === 'moneypolo'">
+                  <ion-label floating>Moneypolo Email or Account Number</ion-label>
+                  <ion-input [(ngModel)]="moneypolo" type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label *ngIf="withdrawalmethod === 'bitcoin'" floating>Bitcoin Wallet Address</ion-label>
+                    <ion-input [(ngModel)]="bitcoin" type="text"></ion-input>
+                  </ion-item>
+                  <ion-item>
+
+                      <button ion-button large full color="primary" (click)="send_request()">Send request</button>
+                    </ion-item>
+
 
       </ion-list>
     </ion-card>

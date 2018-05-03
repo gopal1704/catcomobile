@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 @IonicPage()
 @Component({
@@ -19,6 +20,7 @@ password : string;
     public loadingCtrl: LoadingController, 
     public navParams: NavParams,
      private afAuth: AngularFireAuth,
+     private afs: AngularFirestore,
      public auth : AuthProvider,
      public alertCtrl: AlertController) {
   }
@@ -46,7 +48,12 @@ this.auth.loggedin=true;
 console.log(value.uid);
 this.auth.user_id=value.uid;
 
-this.navCtrl.popToRoot();
+ this.afs.doc<any>(`accountsummary/${this.auth.user_id}`).valueChanges().subscribe((v)=>{
+  this.auth.user_summary = v;
+  this.navCtrl.popToRoot();
+
+ });
+
 
 
 

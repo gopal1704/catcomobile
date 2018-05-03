@@ -53,6 +53,35 @@ export class DataProvider {
     return this.afs.doc<any>(`users/${this.auth.user_id}`).valueChanges();
 
   }
+  withdrawal_request(data) {
+
+    
+
+    const usersummaryref: AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${this.auth.user_id}`); //get the refrence for updating initial user data
+     usersummaryref.update({
+       walletbalance : parseInt(this.auth.user_summary.walletbalance)  -parseInt(data.amount),
+      walletpendingbalance : parseInt(this.auth.user_summary.walletpendingbalance) + parseInt(data.amount)
+     }).then(v=>{
+
+      
+        data.name = this.auth.user_summary.name;
+        data.status = 'pending';
+        data.uid = this.auth.user_summary.uid;
+        data.timestamp = Date.now();
+        var ref = this.afs.collection('/withdrawalrequest');
+        ref.add(data)
+        ;
+  
+      
+      
+
+     })    
+ 
+
+
+
+
+  }
 
 
 }

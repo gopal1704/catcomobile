@@ -15,6 +15,7 @@ export class AuthProvider {
 
   public loggedin : boolean = false;
   public user_id : string = "";
+  public user_summary : any = {};
   constructor(public http: HttpClient,private afAuth: AngularFireAuth) {
     console.log('Hello AuthProvider Provider');
   }

@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DataProvider } from '../../providers/data/data';
+import { AuthProvider } from '../../providers/auth/auth';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
-/**
- * Generated class for the WithdrawPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -14,12 +12,96 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'withdraw.html',
 })
 export class WithdrawPage {
- public withdrawalmethod :string  ="";
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  public withdrawalmethod: string = "";
+  public amount: number = 0;
+  public accountdetails: string = "";
+  public bankname: string = "";
+  public accountnumber: string = "";
+  public ifsc: string = "";
+  public moneypolo: string = "";
+  public paypal: string = "";
+  public bitcoin: string = "";
+
+
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public auth: AuthProvider, public navParams: NavParams, public data_service: DataProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WithdrawPage');
+  }
+  send_request() {
+
+    if (this.amount <= this.auth.user_summary.walletbalance) {
+      var validate = false;
+      if (this.withdrawalmethod == 'bank') {
+
+        if (!(this.bankname == "") && !(this.ifsc == "") && !(this.accountnumber == "")) {
+          validate = true;
+        }
+      }
+      if (this.withdrawalmethod == 'paypal') {
+        console.log(this.paypal);
+        if (!(this.paypal == "")) {
+          validate = true;
+        }
+      }
+      if (this.withdrawalmethod == 'moneypolo') {
+
+        if (!(this.moneypolo == "")) {
+          validate = true;
+        }
+      }
+      if (this.withdrawalmethod == 'bitcoin') {
+
+        if (!(this.bitcoin == "")) {
+          validate = true;
+        }
+      }
+      if (validate == true) {
+        this.data_service.withdrawal_request({
+          amount: this.amount,
+          accounttype: this.withdrawalmethod,
+          bankname: this.bankname,
+          accountnumber: this.accountnumber,
+          ifsc: this.ifsc,
+          bitcoin: this.bitcoin,
+          moneypolo: this.moneypolo,
+          paypal: this.paypal
+
+
+
+        });
+        let alert = this.alertCtrl.create({
+          title: 'Withdrawal request ',
+          subTitle: 'sent successfully',
+          buttons: ['Dismiss']
+        });
+        alert.present();
+
+        this.navCtrl.popToRoot();
+      }
+
+      else {
+        let alert = this.alertCtrl.create({
+          title: 'error',
+          subTitle: 'please enter all the details',
+          buttons: ['Dismiss']
+        });
+        alert.present();
+      }
+
+    }
+    else {
+      let alert = this.alertCtrl.create({
+        title: 'Insufficient funds',
+        subTitle: 'Please enter amount less than wallet balance',
+        buttons: ['Dismiss']
+      });
+      alert.present();
+    }
+
+
   }
 
 }
