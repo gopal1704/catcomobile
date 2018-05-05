@@ -17,6 +17,14 @@
         <ion-label floating>Amount</ion-label>
         <ion-input  [(ngModel)]="amount" type="number"></ion-input>
       </ion-item>
+      <ion-item>
+          <ion-label>Payment  method.</ion-label>
+          <ion-select [(ngModel)]="withdrawalmethod">
+            <ion-option value="bank">Wallet</ion-option>
+            <ion-option value="paypal">Bitcoin</ion-option>
+
+          </ion-select>
+        </ion-item>
 
       <ion-item>
 

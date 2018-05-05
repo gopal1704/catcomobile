@@ -17,6 +17,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { TransactionsPage } from '../pages/transactions/transactions';
 import { WallettransferPage } from '../pages/wallettransfer/wallettransfer';
 import { WithdrawPage } from '../pages/withdraw/withdraw';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import {HttpClientModule} from '@angular/common/http';
 
@@ -24,6 +25,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataProvider } from '../providers/data/data';
 import { AuthProvider } from '../providers/auth/auth';
+import { UploadproofPage } from '../pages/uploadproof/uploadproof';
 var config = {
   apiKey: "AIzaSyDZctYRBSTRhuIjDsPP-j7ide7LrlHjf4o",
   authDomain: "investment-3327a.firebaseapp.com",
@@ -45,7 +47,8 @@ var config = {
     ProfilePage,
     TransactionsPage,
     WallettransferPage,
-    WithdrawPage
+    WithdrawPage,
+    UploadproofPage
 
 
   ],
@@ -70,11 +73,13 @@ var config = {
     ProfilePage,
     TransactionsPage,
     WallettransferPage,
-    WithdrawPage
+    WithdrawPage,
+    UploadproofPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DataProvider,
     AuthProvider,

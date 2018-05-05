@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import{DataProvider} from '../../providers/data/data';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { UploadproofPage } from '../uploadproof/uploadproof';
 
 
 
@@ -22,6 +23,9 @@ public Profile : any;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
+  }
+  gotoproofupload(){
+    this.navCtrl.push(UploadproofPage);
   }
   converttimestampdob(ts){
     var d = new Date(ts);
