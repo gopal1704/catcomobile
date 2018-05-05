@@ -37,60 +37,60 @@ export class DataProvider {
 
   }
   get_investments() {
-        
+
     var investmentscollection = this.afs.collection('investments', ref => {
       return ref.where('uid', '==', this.auth.user_id).orderBy('timestamp', 'desc');
-      
+
     });
     return investmentscollection.valueChanges();
   }
   get_accountsummary() {
     return this.afs.doc<any>(`accountsummary/${this.auth.user_id}`).valueChanges();
-    
+
   }
 
-  get_profile(){
+  get_profile() {
     return this.afs.doc<any>(`users/${this.auth.user_id}`).valueChanges();
 
   }
   withdrawal_request(data) {
 
-    
+
 
     const usersummaryref: AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${this.auth.user_id}`); //get the refrence for updating initial user data
-     usersummaryref.update({
-       walletbalance : parseInt(this.auth.user_summary.walletbalance)  -parseInt(data.amount),
-      walletpendingbalance : parseInt(this.auth.user_summary.walletpendingbalance) + parseInt(data.amount)
-     }).then(v=>{
+    usersummaryref.update({
+      walletbalance: parseInt(this.auth.user_summary.walletbalance) - parseInt(data.amount),
+      walletpendingbalance: parseInt(this.auth.user_summary.walletpendingbalance) + parseInt(data.amount)
+    }).then(v => {
 
-      
-        data.name = this.auth.user_summary.name;
-        data.status = 'pending';
-        data.uid = this.auth.user_summary.uid;
-        data.timestamp = Date.now();
-        var ref = this.afs.collection('/withdrawalrequest');
-        ref.add(data)
+
+      data.name = this.auth.user_summary.name;
+      data.status = 'pending';
+      data.uid = this.auth.user_summary.uid;
+      data.timestamp = Date.now();
+      var ref = this.afs.collection('/withdrawalrequest');
+      ref.add(data)
         ;
-  
-      
-      
 
-     })    
- 
+
+
+
+    })
+
 
 
 
 
   }
 
-   /***********WALLET TRANSFER*************** */
+  /***********WALLET TRANSFER*************** */
   transfer_to_wallet(amount, to_wallet) {
-    
+
     var reftrans = this.afs.collection('/transactions');
     const toaccountsummaryref: AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${to_wallet}`);
-    const fromaccountsummaryref :AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${this.auth.user_id}`);
+    const fromaccountsummaryref: AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${this.auth.user_id}`);
 
-    var transaction_to= {
+    var transaction_to = {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       uid: to_wallet,
       type: 'CWT',
@@ -101,7 +101,7 @@ export class DataProvider {
       debit: 0,
       credit: amount,
       narration: `Credit Wallet Transfer  from : ${this.auth.user_summary.name} ${this.auth.user_id}`
-    };         
+    };
 
     var transaction_from = {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -114,38 +114,38 @@ export class DataProvider {
       debit: amount,
       credit: 0,
       narration: `Debit Wallet Transfer to : ${to_wallet}`
-    };         
+    };
 
-    reftrans.add(transaction_from).then(()=>{
-      reftrans.add(transaction_to).then(()=>{
-        
-//UPDATE SUMMARY DATA
-this.afs.doc<any>(`accountsummary/${to_wallet}`).valueChanges().take(1).subscribe((v) => {
+    reftrans.add(transaction_from).then(() => {
+      reftrans.add(transaction_to).then(() => {
 
-  toaccountsummaryref.update({
-    walletbalance: v.walletbalance + parseInt(amount)
-  }).then(()=>{
+        //UPDATE SUMMARY DATA
+        this.afs.doc<any>(`accountsummary/${to_wallet}`).valueChanges().take(1).subscribe((v) => {
 
-    this.afs.doc<any>(`accountsummary/${this.auth.user_id}`).valueChanges().take(1).subscribe((v)=>{
+          toaccountsummaryref.update({
+            walletbalance: v.walletbalance + parseInt(amount)
+          }).then(() => {
 
-fromaccountsummaryref.update({
-      walletbalance: v.walletbalance - parseInt(amount)
+            this.afs.doc<any>(`accountsummary/${this.auth.user_id}`).valueChanges().take(1).subscribe((v) => {
 
-    });
-    });
+              fromaccountsummaryref.update({
+                walletbalance: v.walletbalance - parseInt(amount)
 
-    // fromaccountsummaryref.update({
-    //   walletbalance: v.walletbalance - amount
+              });
+            });
 
-    // });
+            // fromaccountsummaryref.update({
+            //   walletbalance: v.walletbalance - amount
 
-
+            // });
 
 
 
-  });
 
-});
+
+          });
+
+        });
 
 
 
@@ -156,7 +156,133 @@ fromaccountsummaryref.update({
 
   }//wallet transfer
 
+  //investment wallet
 
+
+  create_investmentwallet(scheme: string, amount: number) {
+    var summary;
+
+
+    ///////////////////// Investment Data 
+
+    ////////////////////////////////////// Transaction Data
+
+    var transaction_user = {
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      uid: this.auth.user_id,
+      type: 'DI',
+      status: 'success',
+      from: '',
+      to: '',
+      amount: amount,
+      debit: 0,
+      credit: 0,
+      narration: `Investment - SCO1 - Wallet Payment Amount : ${amount}`
+
+
+    }
+    var transaction_referral = {
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      uid: this.auth.user_summary.referralid,
+      type: 'CSC',
+      status: 'success',
+      from: this.auth.user_id,
+      to: '',
+      amount: 0,
+      debit: 0,
+      credit: Math.round(amount * 0.05),
+      narration: `Credit referral comission 5%. from ${this.auth.user_summary.name} -- account ${this.auth.user_id} `
+    }
+
+
+
+    var Investment: AngularFirestoreCollection<any>;
+    var ref = this.afs.collection('/investments');
+    var reftrans = this.afs.collection('/transactions');
+
+
+    var name = this.afs.doc<any>(`accountsummary/${this.auth.user_summary.referralid}`).valueChanges();
+    ////
+    name.take(1).subscribe(v => {
+      console.log(v)
+      var investment = {
+        uid: this.auth.user_id,
+        referralid: this.auth.user_summary.referralid,
+        scheme: scheme,
+        amount: amount,
+        interest_rate: 24,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        status: 'active',
+        duration: 90,
+        name: this.auth.user_summary.name,
+        refname: v.name,
+        first_bonus: false,
+        second_bonus: false,
+        third_bonus: false
+
+      }
+
+      ref.add(investment).then((v) => {
+
+        const usersummaryref: AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${this.auth.user_id}`); //get the refrence for updating initial user data
+        const referralsummaryref: AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${this.auth.user_summary.referralid}`);
+
+
+
+        usersummaryref.update({
+
+          totalinvestment: this.auth.user_summary.totalinvestment + amount,
+          walletbalance: this.auth.user_summary.walletbalance - amount,
+          transaction: true
+
+        }).then(
+          (v) => {
+            console.log("success");
+
+            reftrans.add(transaction_user).then((a) => {
+              reftrans.add(transaction_referral).then((v) => {
+                this.afs.doc<any>(`accountsummary/${this.auth.user_summary.referralid}`).valueChanges().take(1).subscribe((v) => {
+                  var pendingwalbal = Math.round(v.walletpendingbalance + amount * 0.05);
+                  var _totalstopearnings = Math.round(v.totalspotearnings + amount * 0.05);
+                  referralsummaryref.update({
+                    walletpendingbalance: pendingwalbal,
+                    totalspotearnings: _totalstopearnings
+                  });
+
+                });
+
+
+              });
+
+            }
+            );
+
+
+          }
+
+          );
+
+
+
+      });
+
+
+    })
+
+    //////ee
+
+
+
+
+
+
+
+
+
+
+
+
+  }
 
 
 

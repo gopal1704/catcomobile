@@ -13,25 +13,57 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
 export class PlacebuyorderPage {
   public amount: number = 0;
   public paymentmethod: string = "";
-  constructor(public auth: AuthProvider, public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public data_service :DataProvider,public auth: AuthProvider, public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
   }
   pay() {
-    if (this.amount > 500) {
 
-      if (this.amount < this.auth.user_summary.walletbalance) {
+    if (this.amount && this.paymentmethod != "" && this.paymentmethod) {
+      if (this.amount > 500) {
+
+        if (this.amount < this.auth.user_summary.walletbalance) {
+
+          if (this.paymentmethod==="wallet") {
+
+           this.data_service.create_investmentwallet('SC01',this.amount);
+           console.log("ii");
+
+
+
+
+
+          }
+
+
+
+
+        } else {
+          let alert = this.alertCtrl.create({
+            title: 'error!',
+            subTitle: 'Insufficient funds',
+            buttons: ['OK']
+          });
+          alert.present();
+
+
+        }
 
       } else {
 
+        let alert = this.alertCtrl.create({
+          title: 'error!',
+          subTitle: 'Minimum amount $500',
+          buttons: ['OK']
+        });
+        alert.present();
       }
 
     } else {
-
       let alert = this.alertCtrl.create({
         title: 'error!',
-        subTitle: 'Minimum amount $500',
+        subTitle: 'please enter all the details',
         buttons: ['OK']
       });
       alert.present();
