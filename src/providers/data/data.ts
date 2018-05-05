@@ -231,8 +231,8 @@ export class DataProvider {
 
         usersummaryref.update({
 
-          totalinvestment: this.auth.user_summary.totalinvestment + parseInt(amount),
-          walletbalance: this.auth.user_summary.walletbalance - parseInt(amount),
+          totalinvestment:parseInt(this.auth.user_summary.totalinvestment) + parseInt(amount),
+          walletbalance: parseInt(this.auth.user_summary.walletbalance) - parseInt(amount),
           transaction: true
 
         }).then(
@@ -356,8 +356,8 @@ export class DataProvider {
 
         usersummaryref.update({
 
-          totalinvestment: this.auth.user_summary.totalinvestment + parseInt(amount),
-          walletbalance: this.auth.user_summary.walletbalance - parseInt(amount),
+          totalinvestment: parseInt(this.auth.user_summary.totalinvestment) + parseInt(amount),
+          walletbalance: parseInt(this.auth.user_summary.walletbalance) - parseInt(amount),
           transaction: true
 
         }).then(

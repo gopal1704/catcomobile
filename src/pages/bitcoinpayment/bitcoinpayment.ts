@@ -13,11 +13,11 @@ declare var QRCode: any;
   selector: 'page-bitcoinpayment',
   templateUrl: 'bitcoinpayment.html',
 })
-interface btc {
-  address: string;
-  index: number;
-  callback: string;
-}
+// interface btc {
+//   address: string;
+//   index: number;
+//   callback: string;
+// }
 
 export class BitcoinpaymentPage {
 
@@ -46,7 +46,7 @@ this.amt = this.data_service.investment_amount;
     var url = "https://api.blockchain.info/v2/receive?xpub=xpub6CEpb79zVLj9qdVcwKmsrKPmiafn3KChzaSqxumSLaiwekzGhaMKt8bLraMSdkupKaUCR9zvJMkipMXAx3dnR86LPYmoKu6k3zFGEznzAkq&&callback=http%3A%2F%2F18.219.116.22%3A3000%2Fcallback&key=d06ca415-9e77-4705-855f-7881c25f1a38"
 
     
-    var bitcoinadd = this.http.get<btc>(url);
+    var bitcoinadd = this.http.get<any>(url);
     let loader = this.loadingCtrl.create({
       content: "Please wait...",
     });
@@ -124,6 +124,7 @@ this.amt = this.data_service.investment_amount;
 
             } else {
               this.paymenterror = true;
+              this.paymentstate = true;
               let alert = this.alertCtrl.create({
                 title: 'error!',
                 subTitle: 'Payment error fund received lesser than actual btc',

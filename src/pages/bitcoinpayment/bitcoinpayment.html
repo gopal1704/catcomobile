@@ -13,7 +13,7 @@
     <ion-card>
         <ion-item>
             <p  item-start large> <b>Amount  </b></p>
-            <p item-end> <ion-badge  color="secondary" >${{btcpayment}}</ion-badge></p>
+            <p item-end> <ion-badge  color="secondary" >${{amt}}</ion-badge></p>
           </ion-item>
     <ion-item>
         <p  item-start large> <b>Pay </b></p>
@@ -21,7 +21,7 @@
       </ion-item>
 
       <ion-item>
-          <p  item-start large> <b>To address </b></p>
+          <p  item-start large> <b>Address</b></p>
           <p item-end> <ion-badge  color="secondary" >{{paymentaddress}} </ion-badge></p>
         </ion-item>
 
@@ -34,9 +34,9 @@
           </ion-item>
 
 </ion-card>
-<div  id="qrcode"></div>
 
 <ion-card>
+    <div  id="qrcode"></div>
 
 </ion-card>
 
