@@ -6,6 +6,8 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
 import 'firebase/storage'
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../../providers/auth/auth';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
 
 @IonicPage()
@@ -16,7 +18,9 @@ import { AuthProvider } from '../../providers/auth/auth';
 export class UploadproofPage {
 
   public proof : any;
-  constructor( public auth :AuthProvider, public afAuth: AngularFireAuth,public alertCtrl : AlertController,public navCtrl: NavController, public navParams: NavParams, private camera : Camera) {
+  constructor(public afs : AngularFirestore,
+    public loadingCtrl : LoadingController,
+    public auth :AuthProvider, public afAuth: AngularFireAuth,public alertCtrl : AlertController,public navCtrl: NavController, public navParams: NavParams, private camera : Camera) {
   
    
   }
@@ -43,13 +47,18 @@ export class UploadproofPage {
   }
 
   upload(){
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+    });
+    loader.present();
+    
     const ref = firebase.storage().ref();
     const file = this.proof;
     const task = ref.child(this.auth.user_id.toString()).putString(file,firebase.storage.StringFormat.DATA_URL);
     task.then((snapshot) => {
      let proofurl= snapshot.downloadURL;
-
-
+     this.afs.doc<any>(`users/${this.auth.user_id}`).update({proofurl:snapshot.downloadURL.toString()}).then(()=>{
+      loader.dismiss();
       let alert = this.alertCtrl.create({
         title: 'success!',
         subTitle: 'proof upload successful!',
@@ -57,7 +66,23 @@ export class UploadproofPage {
       });
       alert.present();
 
+     }).catch((err)=>{
+      loader.dismiss();
+
+      let alert = this.alertCtrl.create({
+        title: 'error!',
+        subTitle: 'error occured during file upload!',
+        buttons: ['OK']
+      });
+      alert.present();    
+     });
+
+
+      
+
   }).catch(()=>{
+    loader.dismiss();
+
     let alert = this.alertCtrl.create({
       title: 'error!',
       subTitle: 'error occured during file upload!',
