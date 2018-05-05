@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataProvider } from '../../providers/data/data';
 import { HttpClient } from '@angular/common/http';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
 declare var QRCode: any;
 
@@ -27,10 +29,14 @@ export class BitcoinpaymentPage {
   public paymenticon = false;
   public paymentaddress: string;
   public paymentreceived: any;
+  public amt : any;
 
-  constructor(private http: HttpClient,public navCtrl: NavController, public navParams: NavParams,public data_service : DataProvider) {
+  constructor(private http: HttpClient,public  alertCtrl: AlertController,
+    public loadingCtrl: LoadingController, 
+
+    public navCtrl: NavController, public navParams: NavParams,public data_service : DataProvider) {
     
-
+this.amt = this.data_service.investment_amount;
 
   }
 
@@ -41,11 +47,18 @@ export class BitcoinpaymentPage {
 
     
     var bitcoinadd = this.http.get<btc>(url);
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+    });
+    loader.present();
+    
     bitcoinadd.subscribe(
       (v) => {
         console.log(v);
         this.paymentaddress = v.address;
+        loader.dismiss();
         this.convertusdtobitcoin(this.data_service.investment_amount);
+
       }
     );
 
@@ -56,8 +69,14 @@ export class BitcoinpaymentPage {
   convertusdtobitcoin(btc) {
 
     var result = this.http.get(`https://blockchain.info/tobtc?currency=USD&value=${btc}`);
-
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+    });
+    loader.present();
+    
     result.subscribe((v) => {
+
+      loader.dismiss();
       console.log(v)
 
       this.btcpayment = v.toString();
@@ -95,11 +114,22 @@ export class BitcoinpaymentPage {
               this.paymentstate = true;
 
               this.data_service.create_investment_btc("SCO1", this.data_service.investment_amount, amount / 100000000);
-           //payment success
-           
+
+              let alert = this.alertCtrl.create({
+                title: 'success!',
+                subTitle: 'Payment successful',
+                buttons: ['OK']
+              });
+              alert.present();
+
             } else {
               this.paymenterror = true;
-
+              let alert = this.alertCtrl.create({
+                title: 'error!',
+                subTitle: 'Payment error fund received lesser than actual btc',
+                buttons: ['OK']
+              });
+              alert.present();
             //payment error 
             }
             break;

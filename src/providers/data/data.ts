@@ -302,7 +302,7 @@ export class DataProvider {
       amount:parseInt(amount) ,
       debit: 0,
       credit: 0,
-      narration: `Investment - SCO1 - Wallet Payment Amount : ${amount}`
+      narration: `Investment - SCO1 - Wallet Payment Amount : ${amount} - BTC ${btc}`
 
 
     }

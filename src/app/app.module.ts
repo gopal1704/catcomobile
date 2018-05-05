@@ -18,7 +18,6 @@ import { TransactionsPage } from '../pages/transactions/transactions';
 import { WallettransferPage } from '../pages/wallettransfer/wallettransfer';
 import { WithdrawPage } from '../pages/withdraw/withdraw';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
 import {HttpClientModule} from '@angular/common/http';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -26,6 +25,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataProvider } from '../providers/data/data';
 import { AuthProvider } from '../providers/auth/auth';
 import { UploadproofPage } from '../pages/uploadproof/uploadproof';
+import { BitcoinpaymentPage } from '../pages/bitcoinpayment/bitcoinpayment';
 var config = {
   apiKey: "AIzaSyDZctYRBSTRhuIjDsPP-j7ide7LrlHjf4o",
   authDomain: "investment-3327a.firebaseapp.com",
@@ -48,9 +48,8 @@ var config = {
     TransactionsPage,
     WallettransferPage,
     WithdrawPage,
-    UploadproofPage
-
-
+    UploadproofPage,
+BitcoinpaymentPage
   ],
   imports: [
     BrowserModule,
@@ -74,7 +73,8 @@ var config = {
     TransactionsPage,
     WallettransferPage,
     WithdrawPage,
-    UploadproofPage
+    UploadproofPage,
+   BitcoinpaymentPage   
   ],
   providers: [
     StatusBar,

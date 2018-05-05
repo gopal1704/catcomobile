@@ -10,7 +10,11 @@
 
 <ion-content padding>
 
-
+    <ion-card>
+        <ion-item>
+            <p  item-start large> <b>Amount  </b></p>
+            <p item-end> <ion-badge  color="secondary" >${{btcpayment}}</ion-badge></p>
+          </ion-item>
     <ion-item>
         <p  item-start large> <b>Pay </b></p>
         <p item-end> <ion-badge  color="secondary" >{{btcpayment}} BTC</ion-badge></p>
@@ -23,12 +27,17 @@
 
         <ion-item>
             <p  item-start large> <b>Payment status </b></p>
-            <p item-end  *ngIf="proof" > <ion-badge   color="secondary" >Success </ion-badge></p>
-            <p item-end *ngIf="proof" > <ion-badge  color="secondary" > Failure </ion-badge></p>
-            <p item-end  *ngIf="proof" > <ion-badge   color="secondary" >Waiting </ion-badge></p>
+            <p item-end  *ngIf="paymentstate" > <ion-badge   color="secondary" >Success </ion-badge></p>
+            <p item-end  *ngIf="!paymentstate" > <ion-badge   color="secondary" >Waiting </ion-badge></p>
+            <p item-end  *ngIf="paymenterror" > <ion-badge   color="secondary" >Error</ion-badge></p>
 
           </ion-item>
 
+</ion-card>
+<div  id="qrcode"></div>
 
+<ion-card>
+
+</ion-card>
 
 </ion-content>

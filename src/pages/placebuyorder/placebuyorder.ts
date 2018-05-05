@@ -4,6 +4,7 @@ import { DataProvider } from '../../providers/data/data';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { BitcoinpaymentPage } from '../bitcoinpayment/bitcoinpayment';
 
 @IonicPage()
 @Component({
@@ -36,7 +37,8 @@ export class PlacebuyorderPage {
 
           }
           if(this.paymentmethod==="bitcoin"){
-            
+            this.data_service.investment_amount = this.amount;
+            this.navCtrl.push(BitcoinpaymentPage);
           }
 
 
