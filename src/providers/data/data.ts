@@ -159,7 +159,7 @@ export class DataProvider {
   //investment wallet
 
 
-  create_investmentwallet(scheme: string, amount: number) {
+  create_investmentwallet(scheme: string, amount: any) {
     var summary;
 
 
@@ -174,7 +174,7 @@ export class DataProvider {
       status: 'success',
       from: '',
       to: '',
-      amount: amount,
+      amount:parseInt(amount) ,
       debit: 0,
       credit: 0,
       narration: `Investment - SCO1 - Wallet Payment Amount : ${amount}`
@@ -209,7 +209,7 @@ export class DataProvider {
         uid: this.auth.user_id,
         referralid: this.auth.user_summary.referralid,
         scheme: scheme,
-        amount: amount,
+        amount: parseInt(amount),
         interest_rate: 24,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         status: 'active',
@@ -231,8 +231,8 @@ export class DataProvider {
 
         usersummaryref.update({
 
-          totalinvestment: this.auth.user_summary.totalinvestment + amount,
-          walletbalance: this.auth.user_summary.walletbalance - amount,
+          totalinvestment: this.auth.user_summary.totalinvestment + parseInt(amount),
+          walletbalance: this.auth.user_summary.walletbalance - parseInt(amount),
           transaction: true
 
         }).then(
@@ -242,8 +242,8 @@ export class DataProvider {
             reftrans.add(transaction_user).then((a) => {
               reftrans.add(transaction_referral).then((v) => {
                 this.afs.doc<any>(`accountsummary/${this.auth.user_summary.referralid}`).valueChanges().take(1).subscribe((v) => {
-                  var pendingwalbal = Math.round(v.walletpendingbalance + amount * 0.05);
-                  var _totalstopearnings = Math.round(v.totalspotearnings + amount * 0.05);
+                  var pendingwalbal = Math.round(v.walletpendingbalance + parseInt(amount) * 0.05);
+                  var _totalstopearnings = Math.round(v.totalspotearnings + parseInt(amount) * 0.05);
                   referralsummaryref.update({
                     walletpendingbalance: pendingwalbal,
                     totalspotearnings: _totalstopearnings

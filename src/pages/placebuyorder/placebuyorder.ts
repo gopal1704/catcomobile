@@ -21,7 +21,7 @@ export class PlacebuyorderPage {
   pay() {
 
     if (this.amount && this.paymentmethod != "" && this.paymentmethod) {
-      if (this.amount > 500) {
+      if (this.amount >= 500) {
 
         if (this.amount < this.auth.user_summary.walletbalance) {
 
