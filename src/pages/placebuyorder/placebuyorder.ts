@@ -30,7 +30,14 @@ export class PlacebuyorderPage {
 
            this.data_service.create_investmentwallet('SC01',this.amount);
            console.log("ii");
-
+           let alert = this.alertCtrl.create({
+            title: 'success!',
+            subTitle: ' Wallet payment successful',
+            buttons: ['OK']
+          });
+          alert.present();
+          this.amount=0;
+          this.paymentmethod="";
 
 
 
