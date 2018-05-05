@@ -19,7 +19,7 @@
       </ion-item>
       <ion-item>
           <ion-label>Payment  method.</ion-label>
-          <ion-select [(ngModel)]="withdrawalmethod">
+          <ion-select [(ngModel)]="paymentmethod">
             <ion-option value="bank">Wallet</ion-option>
             <ion-option value="paypal">Bitcoin</ion-option>
 
@@ -28,7 +28,7 @@
 
       <ion-item>
 
-          <button ion-button large full color="primary" (click)="transfer()">Pay now</button>
+          <button ion-button large full color="primary" (click)="pay()">Pay now</button>
         </ion-item>
 
 

@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the PlacebuyorderPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { DataProvider } from '../../providers/data/data';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AuthProvider } from '../../providers/auth/auth';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 @IonicPage()
 @Component({
@@ -14,12 +11,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'placebuyorder.html',
 })
 export class PlacebuyorderPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public amount: number = 0;
+  public paymentmethod: string = "";
+  constructor(public auth: AuthProvider, public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PlacebuyorderPage');
+  }
+  pay() {
+    if (this.amount > 500) {
+
+      if (this.amount < this.auth.user_summary.walletbalance) {
+
+      } else {
+
+      }
+
+    } else {
+
+      let alert = this.alertCtrl.create({
+        title: 'error!',
+        subTitle: 'Minimum amount $500',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+
   }
 
+
 }
+
+

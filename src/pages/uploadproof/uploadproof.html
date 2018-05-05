@@ -19,11 +19,12 @@
 
         <button ion-button large full color="primary" (click)="takepicture()">Take photo</button>
       </ion-item>
-
-      <p align="center"> <img src="{{proof}}" alt=""></p>
-
       <ion-item>
 
           <button ion-button large full *ngIf="proof" (click)="upload()">upload</button>
         </ion-item>
+
+      <p align="center"> <img src="{{proof}}" alt=""></p>
+
+     
 </ion-content>
