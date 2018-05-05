@@ -15,7 +15,7 @@ import { take } from 'rxjs/operator/take';
 import { AuthProvider } from '../auth/auth';
 @Injectable()
 export class DataProvider {
-
+  public investment_amount : number ;
   public uid: string;
   constructor(public http: HttpClient,
     public afs: AngularFirestore,
@@ -284,6 +284,130 @@ export class DataProvider {
 
   }
 
+  create_investment_btc(scheme: string, amount: any, btc : any) {
+    var summary;
+
+
+    ///////////////////// Investment Data 
+
+    ////////////////////////////////////// Transaction Data
+
+    var transaction_user = {
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      uid: this.auth.user_id,
+      type: 'DI',
+      status: 'success',
+      from: '',
+      to: '',
+      amount:parseInt(amount) ,
+      debit: 0,
+      credit: 0,
+      narration: `Investment - SCO1 - Wallet Payment Amount : ${amount}`
+
+
+    }
+    var transaction_referral = {
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      uid: this.auth.user_summary.referralid,
+      type: 'CSC',
+      status: 'success',
+      from: this.auth.user_id,
+      to: '',
+      amount: 0,
+      debit: 0,
+      credit: Math.round(amount * 0.05),
+      narration: `Credit referral comission 5%. from ${this.auth.user_summary.name} -- account ${this.auth.user_id} `
+    }
+
+
+
+    var Investment: AngularFirestoreCollection<any>;
+    var ref = this.afs.collection('/investments');
+    var reftrans = this.afs.collection('/transactions');
+
+
+    var name = this.afs.doc<any>(`accountsummary/${this.auth.user_summary.referralid}`).valueChanges();
+    ////
+    name.take(1).subscribe(v => {
+      console.log(v)
+      var investment = {
+        uid: this.auth.user_id,
+        referralid: this.auth.user_summary.referralid,
+        scheme: scheme,
+        amount: parseInt(amount),
+        interest_rate: 24,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        status: 'active',
+        duration: 90,
+        name: this.auth.user_summary.name,
+        refname: v.name,
+        first_bonus: false,
+        second_bonus: false,
+        third_bonus: false
+
+      }
+
+      ref.add(investment).then((v) => {
+
+        const usersummaryref: AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${this.auth.user_id}`); //get the refrence for updating initial user data
+        const referralsummaryref: AngularFirestoreDocument<any> = this.afs.doc(`accountsummary/${this.auth.user_summary.referralid}`);
+
+
+
+        usersummaryref.update({
+
+          totalinvestment: this.auth.user_summary.totalinvestment + parseInt(amount),
+          walletbalance: this.auth.user_summary.walletbalance - parseInt(amount),
+          transaction: true
+
+        }).then(
+          (v) => {
+            console.log("success");
+
+            reftrans.add(transaction_user).then((a) => {
+              reftrans.add(transaction_referral).then((v) => {
+                this.afs.doc<any>(`accountsummary/${this.auth.user_summary.referralid}`).valueChanges().take(1).subscribe((v) => {
+                  var pendingwalbal = Math.round(v.walletpendingbalance + parseInt(amount) * 0.05);
+                  var _totalstopearnings = Math.round(v.totalspotearnings + parseInt(amount) * 0.05);
+                  referralsummaryref.update({
+                    walletpendingbalance: pendingwalbal,
+                    totalspotearnings: _totalstopearnings
+                  });
+
+                });
+
+
+              });
+
+            }
+            );
+
+
+          }
+
+          );
+
+
+
+      });
+
+
+    })
+
+    //////ee
+
+
+
+
+
+
+
+
+
+
+
+
+  }
 
 
 

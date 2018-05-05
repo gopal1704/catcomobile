@@ -35,6 +35,9 @@ export class PlacebuyorderPage {
 
 
           }
+          if(this.paymentmethod==="bitcoin"){
+            
+          }
 
 
 
