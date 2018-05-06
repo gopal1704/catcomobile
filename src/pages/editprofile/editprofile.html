@@ -2,6 +2,11 @@
 
   <ion-navbar>
     <ion-title>Editprofile</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="save()">
+          <ion-icon name="md-checkmark"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -13,20 +18,20 @@
 
         <ion-item>
           <ion-label floating>Title</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input disabled [(ngModel)]="Profile.title" type="text" ></ion-input>
         </ion-item>
       
         <ion-item>
           <ion-label floating>First name</ion-label>
-          <ion-input type="password"></ion-input>
+          <ion-input disabled [(ngModel)]="Profile.displayname" type="text"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label floating>Last name</ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input disabled type="text" [(ngModel)]="Profile.lastname"></ion-input>
           </ion-item>
           <ion-item>
               <ion-label>Gender</ion-label>
-              <ion-select [(ngModel)]="paymentmethod">
+              <ion-select [(ngModel)]="Profile.gender">
                 <ion-option value="male">male</ion-option>
                 <ion-option value="female">female</ion-option>
     
@@ -35,31 +40,37 @@
 
             <ion-item>
                 <ion-label>Date of birth</ion-label>
-                <ion-input type="date"></ion-input>
+                <ion-input  [(ngModel)]="Profile.dob" type="date"></ion-input>
 
               </ion-item>
 
             <ion-item>
                 <ion-label>Country</ion-label>
-                <ion-select [(ngModel)]="paymentmethod">
-                  <ion-option value="male">male</ion-option>
-                  <ion-option value="female">female</ion-option>
-      
+                <ion-select (change)="onchangecountry($event.target.value)" [(ngModel)]="Profile.country">
+                    <ion-option *ngFor="let c of CountryCodesList"  (ionSelect)="onchangecountry(c.name)" value="{{c.name}}">{{c.name}}</ion-option>
+
                 </ion-select>
               </ion-item>
 
 
             <ion-item>
                 <ion-label floating>Isd code</ion-label>
-                <ion-input  type="text"></ion-input>
+                <ion-input  [(ngModel)]="Profile.isdcode" type="text"></ion-input>
               </ion-item>
+
+              <ion-item>
+                  <ion-label floating>Mobile</ion-label>
+                  <ion-input [(ngModel)]="Profile.mobile" type="number"></ion-input>
+                </ion-item>
+
+
               <ion-item>
                   <ion-label floating>Address</ion-label>
-                  <ion-input  type="textarea"></ion-input>
+                  <ion-input [(ngModel)]="Profile.address" type="textarea"></ion-input>
                 </ion-item>
               <ion-item>
                   <ion-label floating>city</ion-label>
-                  <ion-input  type="text"></ion-input>
+                  <ion-input  [(ngModel)]="Profile.city" type="text"></ion-input>
                 </ion-item>
 
                

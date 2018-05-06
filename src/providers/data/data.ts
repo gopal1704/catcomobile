@@ -53,6 +53,9 @@ export class DataProvider {
     return this.afs.doc<any>(`users/${this.auth.user_id}`).valueChanges();
 
   }
+  edit_profile(profile){
+    return this.afs.doc<any>(`users/${this.auth.user_id}`).update(profile);
+  }
   withdrawal_request(data) {
 
 

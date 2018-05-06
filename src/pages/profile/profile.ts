@@ -19,6 +19,15 @@ public Profile : any;
     public navCtrl: NavController, public navParams: NavParams,public data_service : DataProvider) {
 
     this.Profile = {};
+    let loader = this.loadingCtrl.create({
+      content: " please wait...",
+    });
+    loader.present();
+  this.data_service.get_profile().subscribe((v)=>{
+  this.Profile=v;
+  loader.dismiss();
+  })
+    
 
   }
 

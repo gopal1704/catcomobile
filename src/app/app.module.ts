@@ -27,6 +27,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { UploadproofPage } from '../pages/uploadproof/uploadproof';
 import { BitcoinpaymentPage } from '../pages/bitcoinpayment/bitcoinpayment';
 import { EditprofilePage } from '../pages/editprofile/editprofile';
+import { LogoutPage } from '../pages/logout/logout';
 
 var config = {
   apiKey: "AIzaSyDZctYRBSTRhuIjDsPP-j7ide7LrlHjf4o",
@@ -52,7 +53,8 @@ var config = {
     WithdrawPage,
     UploadproofPage,
 BitcoinpaymentPage,
-EditprofilePage
+EditprofilePage,
+LogoutPage
   ],
   imports: [
     BrowserModule,
@@ -78,7 +80,8 @@ EditprofilePage
     WithdrawPage,
     UploadproofPage,
    BitcoinpaymentPage,
-   EditprofilePage 
+   EditprofilePage ,
+   LogoutPage
   ],
   providers: [
     StatusBar,

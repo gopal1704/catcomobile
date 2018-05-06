@@ -75,7 +75,11 @@
 
                                 <ion-item-divider>    
                                                                 <p  item-start large> <b> Id proof				 </b></p>
-                                  <p item-end> <a href="{{Profile.proofurl}}">view</a> </p>
+                                  <p item-end>
+
+                                      <a  *ngIf = "Profile.proofurl != ''"  href="{{Profile.proofurl}}">View  proof</a>
+                                      <span  *ngIf = "Profile.proofurl === ''">no  proof uploaded</span>
+                                  </p>
                                 </ion-item-divider>    
                                 <ion-item>
 
