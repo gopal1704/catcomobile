@@ -1,8 +1,7 @@
-
 <ion-header>
 
   <ion-navbar>
-    <ion-title>editprofile</ion-title>
+    <ion-title>Editprofile</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,7 +9,68 @@
 
 <ion-content padding>
 
+    <ion-list>
+
+        <ion-item>
+          <ion-label floating>Title</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label floating>First name</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Last name</ion-label>
+            <ion-input type="password"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label>Gender</ion-label>
+              <ion-select [(ngModel)]="paymentmethod">
+                <ion-option value="male">male</ion-option>
+                <ion-option value="female">female</ion-option>
+    
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Date of birth</ion-label>
+                <ion-input type="date"></ion-input>
+
+              </ion-item>
+
+            <ion-item>
+                <ion-label>Country</ion-label>
+                <ion-select [(ngModel)]="paymentmethod">
+                  <ion-option value="male">male</ion-option>
+                  <ion-option value="female">female</ion-option>
+      
+                </ion-select>
+              </ion-item>
 
 
-  
+            <ion-item>
+                <ion-label floating>Isd code</ion-label>
+                <ion-input  type="text"></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label floating>Address</ion-label>
+                  <ion-input  type="textarea"></ion-input>
+                </ion-item>
+              <ion-item>
+                  <ion-label floating>city</ion-label>
+                  <ion-input  type="text"></ion-input>
+                </ion-item>
+
+               
+                
+
+
+
+
+      </ion-list>
+
+
+
+
 </ion-content>
