@@ -29,7 +29,8 @@ export class WithdrawPage {
   constructor(public navCtrl: NavController,
     public toastCtrl : ToastController,
     public alertCtrl: AlertController, public auth: AuthProvider, public navParams: NavParams, public data_service: DataProvider) {
-  }
+  
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WithdrawPage');
@@ -65,6 +66,9 @@ export class WithdrawPage {
         }
       }
       if (validate == true) {
+
+
+if(( this.auth.user_summary.approvalstatus=="approved")&&(this.auth.user_summary.transaction==true)){
         this.data_service.withdrawal_request({
           amount: this.amount,
           accounttype: this.withdrawalmethod,
@@ -89,7 +93,28 @@ export class WithdrawPage {
         this.withdrawalmethod="";
     this.navCtrl.popToRoot();
        
+      }
+      else{
+        if(this.auth.user_summary.transaction==false){
+          let alert = this.alertCtrl.create({
+            title: 'error!',
+            subTitle: 'Please make initial investment to withdraw',
+            buttons: ['OK']
+          });
+          alert.present();
 
+        }
+        if(this.auth.user_summary.approvalstatus!="approved"){
+
+          let alert = this.alertCtrl.create({
+            title: 'error!',
+            subTitle: 'Approval pending cannot send withdraw request .',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+
+      }
  
       }
 

@@ -48,6 +48,14 @@ export class DataProvider {
     return this.afs.doc<any>(`accountsummary/${this.auth.user_id}`).valueChanges();
 
   }
+  get_referrals() {
+
+    var accountsummarycollection = this.afs.collection('accountsummary', ref => {
+      return ref.where('referralid', '==', this.auth.user_id)
+    });
+    return accountsummarycollection.valueChanges();
+
+  }
 
   get_profile() {
     return this.afs.doc<any>(`users/${this.auth.user_id}`).valueChanges();
