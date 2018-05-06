@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import{DataProvider} from '../../providers/data/data';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 import { UploadproofPage } from '../uploadproof/uploadproof';
+import { EditprofilePage } from '../editprofile/editprofile';
 
 
 
@@ -32,6 +33,10 @@ public Profile : any;
    // return d.toLocaleString();
      return  d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
     
+    }
+
+    editprofile(){
+      this.navCtrl.push(EditprofilePage);
     }
   ionViewDidEnter() {
 

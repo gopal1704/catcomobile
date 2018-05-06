@@ -26,6 +26,8 @@ import { DataProvider } from '../providers/data/data';
 import { AuthProvider } from '../providers/auth/auth';
 import { UploadproofPage } from '../pages/uploadproof/uploadproof';
 import { BitcoinpaymentPage } from '../pages/bitcoinpayment/bitcoinpayment';
+import { EditprofilePage } from '../pages/editprofile/editprofile';
+
 var config = {
   apiKey: "AIzaSyDZctYRBSTRhuIjDsPP-j7ide7LrlHjf4o",
   authDomain: "investment-3327a.firebaseapp.com",
@@ -49,7 +51,8 @@ var config = {
     WallettransferPage,
     WithdrawPage,
     UploadproofPage,
-BitcoinpaymentPage
+BitcoinpaymentPage,
+EditprofilePage
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ BitcoinpaymentPage
     WallettransferPage,
     WithdrawPage,
     UploadproofPage,
-   BitcoinpaymentPage   
+   BitcoinpaymentPage,
+   EditprofilePage 
   ],
   providers: [
     StatusBar,
