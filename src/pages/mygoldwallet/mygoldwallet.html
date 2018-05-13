@@ -15,13 +15,13 @@
       
         <ion-item>
           <p  item-start large> <b>Investment : </b> {{converttimestamp(t.timestamp,t.duration)}}  </p>
-          <p item-end> <ion-badge  color="primary" >${{t.amount}}</ion-badge>
+          <p item-end class="un" item-end style="color:#f9cd48" >  <b>${{t.amount}}</b>
           </p>
         </ion-item>
       
         <ion-item>
             <p  item-start large> <b>Maturity : </b> {{calculateenddate(t.timestamp,t.duration)}} </p>
-            <p item-end> <ion-badge  color="secondary" >${{t.amount+(t.amount*(t.interest_rate/100))}}</ion-badge></p>
+            <p item-end item-end class="un" item-end style="color:#32db64"><b>${{t.amount+(t.amount*(t.interest_rate/100))}}</b></p>
           </ion-item>
         
       

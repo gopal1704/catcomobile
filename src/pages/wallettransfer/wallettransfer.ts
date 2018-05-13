@@ -36,17 +36,47 @@ public accountstatus : boolean = false;
       alert.present();
     }
     else if(this.accountstatus==true){
-      this.data_service.transfer_to_wallet(this.amount,this.to_wallet);
-      let alert = this.alertCtrl.create({
-        title: 'success!',
-        subTitle: 'Wallet transfer successful ',
-        buttons: ['OK']
-      });
-      alert.present();
-      this.amount = 0;
-      this.to_wallet = "";
-      this.accountstatus = false;
-      
+////
+
+let alertconfirm = this.alertCtrl.create({
+  title: 'Confirmation',
+  message: `Confirm wallet transfer to ${this.Accountname}`,
+  buttons: [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+      //  console.log('Cancel clicked');
+      }
+    },
+    {
+      text: 'Buy',
+      handler: () => {
+        
+        this.data_service.transfer_to_wallet(this.amount,this.to_wallet);
+        let alert = this.alertCtrl.create({
+          title: 'success!',
+          subTitle: 'Wallet transfer successful ',
+          buttons: ['OK']
+        });
+        alert.present();
+        this.amount = 0;
+        this.to_wallet = "";
+        this.accountstatus = false;
+        
+
+      }
+    }
+  ]
+});
+alertconfirm.present();
+
+
+
+
+////
+
+     
     }
     else {
       let alert = this.alertCtrl.create({

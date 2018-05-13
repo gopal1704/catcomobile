@@ -16,24 +16,24 @@
 
     <ion-item>
         <p  item-start large> <b>Name </b>  </p>
-        <p item-end> <ion-badge  color="primary" >{{r.name}}</ion-badge>
+        <p item-end  class="un"> {{r.name}}
         </p>
       </ion-item>
 
 
       <ion-item>
           <p  item-start large> <b>Joining date </b>  </p>
-          <p item-end> <ion-badge  color="primary" >{{converttimestamp(r.joiningdate)}}</ion-badge>
+          <p item-end class="un" item-end style="color:#f9cd48"> {{converttimestamp(r.joiningdate)}}
           </p>
         </ion-item>
         <ion-item>
             <p  item-start large> <b>Total investment </b>  </p>
-            <p item-end> <ion-badge  color="secondary" >{{r.totalinvestment}}</ion-badge>
+            <p item-end  class="un" item-end style="color:#32db64"> {{r.totalinvestment}}
             </p>
           </ion-item>
       <ion-item>
           <p  item-start large> <b>Id </b>  </p>
-          <p item-end> <ion-badge   >${{r.uid}}</ion-badge>
+          <p class="un" item-end> ${{r.uid}}
           </p>
         </ion-item>
     </ion-card>
