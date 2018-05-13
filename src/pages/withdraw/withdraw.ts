@@ -69,30 +69,55 @@ export class WithdrawPage {
 
 
 if(( this.auth.user_summary.approvalstatus=="approved")&&(this.auth.user_summary.transaction==true)){
-        this.data_service.withdrawal_request({
-          amount: this.amount,
-          accounttype: this.withdrawalmethod,
-          bankname: this.bankname,
-          accountnumber: this.accountnumber,
-          ifsc: this.ifsc,
-          bitcoin: this.bitcoin,
-          moneypolo: this.moneypolo,
-          paypal: this.paypal
+    
+  let alertconfirm = this.alertCtrl.create({
+    title: 'Confirmation',
+    message: 'Confirm withdrawal request?',
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Ok',
+        handler: () => {
+          this.data_service.withdrawal_request({
+            amount: this.amount,
+            accounttype: this.withdrawalmethod,
+            bankname: this.bankname,
+            accountnumber: this.accountnumber,
+            ifsc: this.ifsc,
+            bitcoin: this.bitcoin,
+            moneypolo: this.moneypolo,
+            paypal: this.paypal
+  
+  
+  
+          });
+         
+          let toast = this.toastCtrl.create({
+            message: 'Request sent successfully',
+            duration: 3000,
+            position: 'top'
+          });
+          toast.present();
+          this.amount=0;
+          this.withdrawalmethod="";
+      this.navCtrl.popToRoot();
+   
+         
+        }
+      }
+    ]
+  });
+  alertconfirm.present();
 
 
-
-        });
-       
-        let toast = this.toastCtrl.create({
-          message: 'Request sent successfully',
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present();
-        this.amount=0;
-        this.withdrawalmethod="";
-    this.navCtrl.popToRoot();
-       
+  ///
+    ///   
       }
       else{
         if(this.auth.user_summary.transaction==false){

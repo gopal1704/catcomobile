@@ -28,24 +28,74 @@ export class PlacebuyorderPage {
 
           if (this.paymentmethod==="wallet") {
 
-           this.data_service.create_investmentwallet('SC01',this.amount);
-           console.log("ii");
-           let alert = this.alertCtrl.create({
-            title: 'success!',
-            subTitle: ' Wallet payment successful',
-            buttons: ['OK']
-          });
-          alert.present();
-          this.amount=0;
-          this.paymentmethod="";
+            let alertconfirm = this.alertCtrl.create({
+              title: 'Confirmation',
+              message: 'Confirm order',
+              buttons: [
+                {
+                  text: 'Cancel',
+                  role: 'cancel',
+                  handler: () => {
+                    console.log('Cancel clicked');
+                  }
+                },
+                {
+                  text: 'ok',
+                  handler: () => {
+                    this.data_service.create_investmentwallet('SC01',this.amount);
+                    console.log("ii");
+                    let alert = this.alertCtrl.create({
+                     title: 'success!',
+                     subTitle: ' Wallet payment successful',
+                     buttons: ['OK']
+                   });
+                   alert.present();
+                   this.amount=0;
+                   this.paymentmethod="";
 
+                  }
+                }
+              ]
+            });
+            alertconfirm.present();
+
+            ///
+          
+////
 
 
 
           }
           if(this.paymentmethod==="bitcoin"){
-            this.data_service.investment_amount = this.amount;
-            this.navCtrl.push(BitcoinpaymentPage);
+
+            let alert = this.alertCtrl.create({
+              title: 'Confirmation',
+              message: 'Confirm bitcon payment?',
+              buttons: [
+                {
+                  text: 'Cancel',
+                  role: 'cancel',
+                  handler: () => {
+                    console.log('Cancel clicked');
+                  }
+                },
+                {
+                  text: 'Ok',
+                  handler: () => {
+                    this.data_service.investment_amount = this.amount;
+                    this.navCtrl.push(BitcoinpaymentPage);
+                  }
+                }
+              ]
+            });
+            alert.present();
+
+//
+           
+          //
+          
+          
+          
           }
 
 

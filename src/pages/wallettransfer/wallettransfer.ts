@@ -50,7 +50,7 @@ let alertconfirm = this.alertCtrl.create({
       }
     },
     {
-      text: 'Buy',
+      text: 'Ok',
       handler: () => {
         
         this.data_service.transfer_to_wallet(this.amount,this.to_wallet);
