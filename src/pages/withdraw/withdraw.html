@@ -28,7 +28,7 @@
         <ion-item>
             <ion-label>Withdrawal method.</ion-label>
             <ion-select [(ngModel)]="withdrawalmethod">
-              <ion-option value="bank">Bank</ion-option>
+              <ion-option   *ngIf="country_india == true"   value="bank">Bank</ion-option>
               <ion-option value="paypal">Paypal</ion-option>
               <ion-option value="moneypolo">Moneypolo</ion-option>
               <ion-option value="bitcoin">Bitcoin</ion-option>

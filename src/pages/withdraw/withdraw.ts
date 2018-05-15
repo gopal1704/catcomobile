@@ -24,7 +24,8 @@ export class WithdrawPage {
   public moneypolo: string = "";
   public paypal: string = "";
   public bitcoin: string = "";
-
+ 
+  public country_india = false;
 
   constructor(public navCtrl: NavController,
     public toastCtrl : ToastController,
@@ -35,6 +36,18 @@ export class WithdrawPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad WithdrawPage');
   }
+
+  ionViewDidEnter() {
+  this.data_service.get_profile().subscribe((d)=>{
+    if(d.country=="India"){
+      this.country_india=true;
+    }
+
+  })
+  
+  }
+
+
   send_request() {
 
     if (this.amount <= this.auth.user_summary.walletbalance) {

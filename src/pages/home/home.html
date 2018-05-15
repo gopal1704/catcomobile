@@ -5,9 +5,7 @@
     </button>
     <ion-title>Account Summary</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only (click)="openModal()">
-          <ion-icon name="options"></ion-icon>
-        </button>
+       
       </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -18,7 +16,14 @@
 
         <ion-item>
             <p   item-start large> <b >{{Accountsummary.name}} </b></p>
-            <p item-end> <ion-badge  color="secondary" >{{Accountsummary.approvalstatus}}</ion-badge></p>
+            <p item-end  style ="color :red" *ngIf="Accountsummary.approvalstatus=='pending'"> 
+             <b> {{Accountsummary.approvalstatus}}</b>  
+              
+              </p>
+              <p item-end  style ="color :green" *ngIf="Accountsummary.approvalstatus=='approved'"> 
+               <b>{{Accountsummary.approvalstatus}} </b>   
+                 
+                 </p>
           </ion-item>
         
       
