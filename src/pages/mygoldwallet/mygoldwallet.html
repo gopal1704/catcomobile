@@ -15,7 +15,7 @@
       
         <ion-item>
           <p  item-start large> <b>Investment : </b> {{converttimestamp(t.timestamp,t.duration)}}  </p>
-          <p item-end class="un" item-end style="color:#f9cd48" >  <b>${{t.amount}}</b>
+          <p item-end class="un" item-end  >  <b>${{t.amount}}</b>
           </p>
         </ion-item>
       
@@ -29,7 +29,7 @@
           <span item-left>{{t.duration}} days</span>
           <span item-left>(24%)</span>
           <button ion-button icon-left clear item-end>
-          <p style ="color :green"> <b> {{t.status}}</b></p>
+          <p > <b> {{t.status}}</b></p>
           </button>
         </ion-item>
       

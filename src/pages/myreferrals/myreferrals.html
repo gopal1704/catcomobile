@@ -23,12 +23,12 @@
 
       <ion-item>
           <p  item-start large> <b>Joining date </b>  </p>
-          <p item-end class="un" item-end style="color:#f9cd48"> {{converttimestamp(r.joiningdate)}}
+          <p item-end class="un" item-end > {{converttimestamp(r.joiningdate)}}
           </p>
         </ion-item>
         <ion-item>
             <p  item-start large> <b>Total investment </b>  </p>
-            <p item-end  class="un" item-end style="color:#32db64"> {{r.totalinvestment}}
+            <p item-end  class="un" item-end style="color:#32db64"> <b>${{r.totalinvestment}}</b>
             </p>
           </ion-item>
       <ion-item>

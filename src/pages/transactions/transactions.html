@@ -25,7 +25,7 @@
                 <p><b>{{converttimestamp(t.timestamp)}}</b></p>  
                   <p *ngIf="t.debit > 0" style="color:#f53d3d" item-end> <b>${{t.debit}}</b></p>
                   <p *ngIf="t.credit > 0" style="color:#32db64" item-end> <b>${{t.credit}}</b></p>
-                  <p *ngIf="t.type=='DI'" style="color:#f9cd48" item-end>  <b>${{t.amount}}</b></p>
+                  <p *ngIf="t.type=='DI'" style="color:#080808" item-end>  <b>${{t.amount}}</b></p>
   
                 </ion-item>
                 <ion-card-content>            <p>{{t.narration}}</p>

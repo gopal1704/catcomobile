@@ -39,52 +39,48 @@
             <p class="un" item-end> {{Accountsummary.uid}}</p>
           </ion-item>
 
-        <ion-card>
-        <ion-item>
+        </ion-card>
+
+<!--  -->
+<ion-card>
+        <ion-item-divider>
           <p  item-start large> Wallet balance</p>
               
-          <p class="un" item-end style="color:#f9cd48">  <b>${{Accountsummary.walletbalance}}</b>
+          <p class="un" item-end >  <b>${{Accountsummary.walletbalance}}</b>
           </p>
-        </ion-item>
-        </ion-card>
-        <ion-card>
-            <ion-item>
+        </ion-item-divider>
+
+
+            <ion-item-divider>
               <p  item-start large> Pending Wallet balance</p>
                 
                   
-              <p  class="un" item-end style="color:#f9cd48"> <b>${{Accountsummary.walletpendingbalance}}</b></p>
-            </ion-item>
-            </ion-card>
-            <ion-card>
-                <ion-item>
+              <p  class="un" item-end > <b>${{Accountsummary.walletpendingbalance}}</b></p>
+            </ion-item-divider>
+
+            <ion-item-divider>
                   <p  item-start large> Referral comission </p>
                     
                       
-                  <p  class="un" item-end style="color:#f9cd48"> <b>${{Accountsummary.totalspotearnings}}</b>
+                  <p  class="un" item-end > <b>${{Accountsummary.totalspotearnings}}</b>
                   </p>
-                </ion-item>
-                </ion-card>
-                <ion-card>
-                    <ion-item>
-                      <p  item-start large> Monthly Ref. Earnings</p>
-                        
-                          
-                      <p class="un" item-end style="color:#f9cd48"> ${{Accountsummary.totalreferralearnings}}
+                </ion-item-divider>
+
+                <ion-item-divider>
+                      <p  item-start large> Monthly Ref. Earnings</p>     
+                      <p class="un" item-end > <b> ${{Accountsummary.totalreferralearnings}}</b>
                       </p>
-                    </ion-item>
-                    </ion-card>
+                    </ion-item-divider>
                                 
       
-                    <ion-card>
-                        <ion-item>
+                        <ion-item-divider>
                           <p  item-start large> Total Holdings
 
                             
                               
-                          <p class="un" item-end style="color:#f9cd48"> <b>${{Accountsummary.totalinvestment}}</b> 
+                          <p class="un" item-end > <b>${{Accountsummary.totalinvestment}}</b> 
                           </p>
-                        </ion-item>
-                        </ion-card>
+                        </ion-item-divider>
       
       </ion-card>
 
