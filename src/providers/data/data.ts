@@ -30,7 +30,7 @@ export class DataProvider {
     console.log(this.uid);
 
     var transactionscollection = this.afs.collection('transactions', ref => {
-      return ref.where('uid', '==', this.auth.user_id).orderBy('timestamp', 'desc')
+      return ref.where('uid', '==', this.auth.user_id).orderBy('timestamp', 'desc').limit(50)
     });
     return transactionscollection.valueChanges();
 
