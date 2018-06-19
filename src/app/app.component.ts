@@ -14,6 +14,7 @@ import { WithdrawPage } from '../pages/withdraw/withdraw';
 import { ProfilePage } from '../pages/profile/profile';
 import { PlanPage } from '../pages/plan/plan';
 import { LoginPage } from '../pages/login/login';
+import { ContactPage } from '../pages/contact/contact';
 
 @Component({
   templateUrl: 'app.html'
@@ -39,6 +40,8 @@ export class MyApp {
       { title: 'Withdraw',icon: 'logo-usd', component: WithdrawPage },
       { title: 'Profile',icon: 'ios-contact-outline', component: ProfilePage },
       { title: 'Buisness Plan',icon: 'ios-list-box-outline', component: PlanPage },
+
+      {title:'Contact',icon :'ios-contact-outline'  ,component : ContactPage  },
       { title: 'Logout',icon: 'md-arrow-back', component: LoginPage },
 
 
